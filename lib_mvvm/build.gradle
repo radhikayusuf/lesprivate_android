@@ -1,0 +1,36 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    api project(path: ':lib_data')
+    api project(path: ':lib_ui')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    api "androidx.appcompat:appcompat:$appCompatVersion"
+    api "androidx.core:core-ktx:$androidKTXVersion"
+
+    api "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
+}
