@@ -1,0 +1,28 @@
+<resources>
+
+    <string name="email">Email</string>
+    <string name="text_password">Password</string>
+    <string name="text_log_in">LOG IN</string>
+    <string name="text_forgot_password">Forgot Password?</string>
+    <string name="text_jenjang_pendidikan">Jenjang Pendidikan</string>
+    <string name="text_kata_sandi">Kata Sandi</string>
+    <string name="text_tulis_ulang_kata_sandi">Tulis Ulang Kata Sandi</string>
+    <string name="text_daftar">Daftar</string>
+    <string name="text_nama_lengkap">Nama Lengkap</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_harap_isi_nama_lengkap">Harap isi nama lengkap</string>
+    <string name="text_harap_isi_username">Harap isi nama pengguna</string>
+    <string name="text_username_tidak_sesuai">Format nama pengguna tidak benar</string>
+    <string name="text_harap_isi_email">Harap isi email</string>
+    <string name="text_format_email_tidak_benar">Format email tidak benar</string>
+    <string name="text_harap_isi_password">Harap isi kata sandi</string>
+    <string name="text_format_kata_sandi_tidak_benar">Format kata sandi tidak benar (8 karakter dengan angka)</string>
+    <string name="text_kata_sandi_tidak_sesui">kata sandi tidak sesuai</string>
+    <string name="text_harap_pilih_jenjang_pendidikan">Jenjang Pendidikan</string>
+    <string name="text_nama_pengguna">Nama Pengguna</string>
+    <string name="text_login">LOGIN</string>
+    <string name="text_register">Register</string>
+    <string name="text_les_private_n_bahasa_inggris">Les Private\n Bahasa Inggris</string>
+
+</resources>

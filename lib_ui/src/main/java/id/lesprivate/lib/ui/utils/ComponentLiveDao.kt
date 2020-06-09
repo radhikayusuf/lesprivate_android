@@ -1,4 +1,4 @@
-package id.lesprivate.lib.mvvm.util
+package id.lesprivate.lib.ui.utils
 
 import androidx.lifecycle.LiveData
 
@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
  * Created by Radhika Yusuf Alifiansyah
  * on 02/Apr/2020
  **/
-class LiveDao<T>(private val defValue: T) : LiveData<T>() {
+class ComponentLiveDao<T>(private val defValue: T) : LiveData<T>() {
 
     var content: T = defValue
         get() = value ?: defValue

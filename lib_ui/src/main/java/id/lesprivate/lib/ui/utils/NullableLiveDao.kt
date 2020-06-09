@@ -1,4 +1,4 @@
-package id.lesprivate.lib.mvvm.util
+package id.lesprivate.lib.ui.utils
 
 import androidx.lifecycle.LiveData
 
@@ -8,18 +8,21 @@ import androidx.lifecycle.LiveData
  **/
 class NullableLiveDao<T>(private val defValue: T?) : LiveData<T>() {
 
+    var hasValueBefore = false
+
     var content: T? = defValue
         get() = value ?: defValue
         set(param) {
+            hasValueBefore = true
             field = param
-            postValue(param!!)
+            postValue(param)
         }
 
-    override fun postValue(value: T) {
+    override fun postValue(value: T?) {
         super.postValue(value)
     }
 
-    override fun setValue(value: T) {
+    override fun setValue(value: T?) {
         super.setValue(value)
     }
 }

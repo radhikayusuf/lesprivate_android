@@ -21,6 +21,7 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
     private val viewBinder: (LayoutInflater) -> ViewBinding
 ) : Fragment(), CoroutineScope {
 
+    private val activity by lazy { requireActivity() as BaseActivity }
     private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
@@ -37,7 +38,7 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
 
     abstract fun onViewReady()
 
-    abstract fun render(): (data: D) -> Unit
+    abstract fun render(): Renderer<D>
 
     abstract fun getViewModel(): Class<VM>
 
@@ -66,9 +67,7 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return binding.root
-    }
+    ) = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,4 +78,20 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
         super.onPause()
         destroy()
     }
+
+    fun onBackPressed() {}
+
+    fun openScreen(screen: BaseScreen<*, *, *>) {
+        activity.replaceScreen(screen)
+    }
+
+    fun openFreshScreen(screen: BaseScreen<*, *, *>) {
+        activity.replaceScreen(screen, false)
+    }
+
+    fun finishScreen() {
+        activity.finishScreen()
+    }
 }
+
+typealias Renderer<D> = D.() -> Unit

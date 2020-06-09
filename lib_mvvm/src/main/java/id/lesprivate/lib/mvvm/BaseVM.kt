@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.lesprivate.lib.mvvm.util.LiveDao
+import id.lesprivate.lib.ui.utils.ComponentLiveDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -19,8 +19,8 @@ abstract class BaseVM<D : BaseDao>(
     private val contentData: D
 ) : ViewModel() {
 
-    private val toastLiveData by lazy { LiveDao("") }
-    private val toastResLiveData by lazy { LiveDao(-1) }
+    private val toastLiveData by lazy { ComponentLiveDao("") }
+    private val toastResLiveData by lazy { ComponentLiveDao(-1) }
 
     abstract suspend fun onCreate()
 
@@ -40,11 +40,11 @@ abstract class BaseVM<D : BaseDao>(
         }
     }
 
-    private fun getLiveDatas(): List<LiveDao<*>> {
+    private fun getLiveDatas(): List<ComponentLiveDao<*>> {
         return try {
             contentData.javaClass.declaredFields
-                .filter { LiveDao::class.java.isAssignableFrom(it.type) }
-                .map { it.isAccessible = true; it.get(contentData) as LiveDao<*> }
+                .filter { ComponentLiveDao::class.java.isAssignableFrom(it.type) }
+                .map { it.isAccessible = true; it.get(contentData) as ComponentLiveDao<*> }
         } catch (e: Exception) {
             emptyList()
         }

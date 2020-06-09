@@ -3,6 +3,7 @@ package id.lesprivate.feature.dummy.screen.home
 import android.view.View
 import id.lesprivate.feature.dummy.databinding.FragmentHomeBinding
 import id.lesprivate.lib.mvvm.BaseScreen
+import id.lesprivate.lib.mvvm.Renderer
 
 /**
  * Created by Radhika Yusuf Alifiansyah
@@ -18,10 +19,10 @@ class HomeScreen : BaseScreen<FragmentHomeBinding, HomeVM, HomeDao>(FragmentHome
         binding.buttonInc.setOnClickListener(this)
     }
 
-    override fun render() = { data: HomeDao ->
-        binding.progressIndicator.visibility = if (data.isLoading) View.VISIBLE else View.GONE
-        binding.textContent.text = data.count.toString()
-        binding.nameOfUser.text = data.name
+    override fun render(): Renderer<HomeDao> = {
+        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.textContent.text = count.toString()
+        binding.nameOfUser.text = name
     }
 
     override fun onClick(v: View?) {
