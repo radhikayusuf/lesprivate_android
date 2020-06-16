@@ -5,7 +5,9 @@ package id.lesprivate.lib.mvvm.util
  * on 02/Apr/2020
  **/
 
+import id.lesprivate.lib.mvvm.util.StringConst.VALID_EMAIL_ADDRESS_REGEX
 import kotlin.reflect.*
+
 
 operator fun <R, T> KProperty0<T>.getValue(receiver: R, prop: KProperty<*>): T =
     get()

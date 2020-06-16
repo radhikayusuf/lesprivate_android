@@ -1,5 +1,7 @@
 package id.lesprivate.lib.mvvm
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +23,9 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
     private val viewBinder: (LayoutInflater) -> ViewBinding
 ) : Fragment(), CoroutineScope {
 
+    val activity by lazy { requireActivity() as BaseActivity }
     private val job = SupervisorJob()
+    private var isHasCreated = false
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
@@ -37,7 +41,7 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
 
     abstract fun onViewReady()
 
-    abstract fun render(): (data: D) -> Unit
+    abstract fun render(): Renderer<D>
 
     abstract fun getViewModel(): Class<VM>
 
@@ -45,7 +49,10 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
         super.onCreate(savedInstanceState)
         launch {
             vm.registerObserverToRender(this@BaseScreen)
-            vm.onCreate()
+            if (!isHasCreated) {
+                vm.onCreate()
+                isHasCreated = true
+            }
         }
     }
 
@@ -66,9 +73,7 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return binding.root
-    }
+    ) = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,4 +84,26 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
         super.onPause()
         destroy()
     }
+
+    open fun onReceivedData(dataResult: Bundle?) {}
+
+    fun onBackPressed() {}
+
+    fun openScreen(screen: BaseScreen<*, *, *>, extras: Bundle? = null) {
+        activity.replaceScreen(screen, extras = extras)
+    }
+
+    fun openFreshScreen(screen: BaseScreen<*, *, *>, extras: Bundle? = null) {
+        activity.replaceScreen(screen, false, extras)
+    }
+
+    fun finishScreen(extras: Bundle? = null) {
+        activity.finishScreen(extras)
+    }
+
+    fun openActivity(from: Context, clazz: Class<*>){
+        startActivity(Intent(from, clazz))
+    }
 }
+
+typealias Renderer<D> = D.() -> Unit

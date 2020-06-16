@@ -1,7 +1,7 @@
 package id.lesprivate.feature.dummy.screen.home
 
 import id.lesprivate.lib.mvvm.BaseDao
-import id.lesprivate.lib.mvvm.util.LiveDao
+import id.lesprivate.lib.ui.utils.ComponentLiveDao
 import id.lesprivate.lib.mvvm.util.getValue
 import id.lesprivate.lib.mvvm.util.setValue
 
@@ -11,13 +11,13 @@ import id.lesprivate.lib.mvvm.util.setValue
  **/
 class HomeDao : BaseDao() {
 
-    val loadingData = LiveDao(false)
+    val loadingData = ComponentLiveDao(false)
     var isLoading by loadingData::content
 
-    val nameData = LiveDao("")
+    val nameData = ComponentLiveDao("")
     var name by nameData::content
 
-    val countData = LiveDao(0)
+    val countData = ComponentLiveDao(0)
     var count by countData::content
 
 }

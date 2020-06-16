@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimens_16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_pendaftaran_kelas"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/size_18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/dimens_24dp"
+                    android:layout_height="@dimen/dimens_24dp"
+                    android:background="@drawable/background_circle_primary"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/colorWhite" />
+
+                <View
+                    android:layout_width="@dimen/dimens_24dp"
+                    android:layout_height="@dimen/dimens_2dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/dimens_4dp"
+                    android:layout_marginEnd="@dimen/dimens_4dp"
+                    android:background="@color/colorGray" />
+
+                <TextView
+                    android:layout_width="@dimen/dimens_24dp"
+                    android:layout_height="@dimen/dimens_24dp"
+                    android:background="@drawable/background_circle_disabled"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="@color/colorBlack" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimens_16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimens_4dp"
+                        android:text="@string/text_pilih_kurikulum"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/size_10sp" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimens_16dp"
+                        android:background="@drawable/background_spinner_primary">
+
+                        <Spinner
+                            android:id="@+id/spinnerCurriculum"
+                            style="@style/ClickableContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimens_48dp"
+                            android:paddingStart="@dimen/dimens_8dp"
+                            android:paddingEnd="@dimen/dimens_16dp"
+                            android:spinnerMode="dialog" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimens_4dp"
+                        android:text="@string/text_jadwal_pertemuan"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/size_10sp" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardCurrculum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimens_8dp"
+                        app:cardCornerRadius="@dimen/dimens_8dp"
+                        app:cardMaxElevation="2dp"
+                        app:cardUseCompatPadding="true">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerCurriculum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <Button
+                        android:id="@+id/buttonAddClass"
+                        style="@style/ButtonPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_tambah_pertemuan"
+                        android:textSize="@dimen/size_14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimens_16dp">
+
+                <TextView
+                    android:id="@+id/lesCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/dimens_8dp"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    tools:text="Rp. 500.000" />
+
+                <TextView
+                    android:id="@+id/lesTitleCost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/lesCost"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/text_kurikulum_param"
+                    tools:text="Kurikulum : Les Bahasa Inggris SMK" />
+
+                <TextView
+                    android:id="@+id/jumlahPertemuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lesCost"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/dimens_8dp"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    tools:text="@string/text_param_kali" />
+
+                <TextView
+                    android:id="@+id/titleJumlahPertemuan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lesCost"
+                    android:layout_alignEnd="@+id/jumlahPertemuan"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/text_jumlah_pertemuan"
+                    tools:text="Jumlah Pertemuan" />
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimens_1dp"
+                    android:layout_below="@id/jumlahPertemuan"
+                    android:layout_marginBottom="@dimen/dimens_8dp"
+                    android:background="@color/colorGray" />
+
+                <TextView
+                    android:id="@+id/totalCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/separator"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/dimens_16dp"
+                    android:gravity="end"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    tools:text="Rp 1.000.000" />
+
+
+                <FrameLayout
+                    android:id="@+id/buttonSubmit"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/totalCost"
+                    android:text="@string/text_simpan">
+
+                    <TextView
+                        android:id="@+id/buttonText"
+                        style="@style/ButtonPrimaryContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_simpan"
+                        android:textColor="@color/colorWhite"
+                        android:visibility="visible" />
+
+                    <ProgressBar
+                        android:id="@+id/buttonProgress"
+                        style="?android:attr/progressBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/colorAccent"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

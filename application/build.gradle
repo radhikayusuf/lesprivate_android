@@ -42,6 +42,8 @@ android {
 dependencies {
     implementation project(path: ':lib_mvvm')
     implementation project(path: ':feature_dummy')
+    implementation project(path: ':feature_user')
+    implementation project(path: ':feature_schedule')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
     // Architecture Components
