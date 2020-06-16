@@ -1,5 +1,6 @@
 package id.lesprivate.lib.mvvm
 
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import id.lesprivate.lib.mvvm.util.replaceScreen
 import java.util.*
@@ -12,6 +13,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private var currentScreen: BaseScreen<*, *, *>? = null
     private val listOfScreen = Stack<BaseScreen<*, *, *>>()
+    private var bundleCurrentExtras: Bundle? = null
 
     abstract fun frameLayoutId(): Int
 
@@ -35,7 +37,8 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun replaceScreen(screen: BaseScreen<*, *, *>, stack: Boolean = true) {
+    fun replaceScreen(screen: BaseScreen<*, *, *>, stack: Boolean = true, extras: Bundle? = null) {
+        bundleCurrentExtras = extras
         if (stack) {
             listOfScreen.add(screen)
         } else {
@@ -45,11 +48,17 @@ abstract class BaseActivity : AppCompatActivity() {
         supportFragmentManager.replaceScreen(screen, frameLayoutId(), android.R.animator.fade_in, android.R.animator.fade_out)
     }
 
-    fun finishScreen() {
+    fun finishScreen(extras: Bundle? = null) {
+        bundleCurrentExtras = extras
         if (listOfScreen.isNotEmpty()) {
-            listOfScreen.pop().let {
-                currentScreen = it
-                supportFragmentManager.replaceScreen(it, frameLayoutId(), android.R.animator.fade_in, android.R.animator.fade_out)
+            listOfScreen.pop()
+            val screen = listOfScreen.lastOrNull()
+            if (screen != null) {
+                currentScreen = screen
+                supportFragmentManager.replaceScreen(screen, frameLayoutId(), android.R.animator.fade_in, android.R.animator.fade_out)
+                currentScreen?.onReceivedData(extras)
+            } else {
+                finish()
             }
         } else {
             finish()

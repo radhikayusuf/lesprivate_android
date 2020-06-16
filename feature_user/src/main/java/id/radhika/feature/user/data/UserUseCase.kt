@@ -20,4 +20,6 @@ class UserUseCase(
     suspend fun login(email: String, password: String): SimpleResult<LoginResponseModel> {
         return repository.login(email, password)
     }
+
+    suspend fun isUserLogin() = repository.isLogin()
 }

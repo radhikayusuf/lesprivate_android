@@ -59,7 +59,7 @@ class RegisterVM(
             if (levelPosition == 0 && pos == 5)
                 dao.errorLevel = R.string.text_harap_pilih_jenjang_pendidikan
 
-            dao.isAnyError = !isValid()
+            dao.isAnyError = isValid()
         }
     }
 

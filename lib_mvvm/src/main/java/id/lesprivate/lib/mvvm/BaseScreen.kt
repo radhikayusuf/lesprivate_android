@@ -1,5 +1,7 @@
 package id.lesprivate.lib.mvvm
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +23,9 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
     private val viewBinder: (LayoutInflater) -> ViewBinding
 ) : Fragment(), CoroutineScope {
 
-    private val activity by lazy { requireActivity() as BaseActivity }
+    val activity by lazy { requireActivity() as BaseActivity }
     private val job = SupervisorJob()
+    private var isHasCreated = false
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
@@ -46,7 +49,10 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
         super.onCreate(savedInstanceState)
         launch {
             vm.registerObserverToRender(this@BaseScreen)
-            vm.onCreate()
+            if (!isHasCreated) {
+                vm.onCreate()
+                isHasCreated = true
+            }
         }
     }
 
@@ -79,18 +85,24 @@ abstract class BaseScreen<B : ViewBinding, VM : BaseVM<D>, D : BaseDao>(
         destroy()
     }
 
+    open fun onReceivedData(dataResult: Bundle?) {}
+
     fun onBackPressed() {}
 
-    fun openScreen(screen: BaseScreen<*, *, *>) {
-        activity.replaceScreen(screen)
+    fun openScreen(screen: BaseScreen<*, *, *>, extras: Bundle? = null) {
+        activity.replaceScreen(screen, extras = extras)
     }
 
-    fun openFreshScreen(screen: BaseScreen<*, *, *>) {
-        activity.replaceScreen(screen, false)
+    fun openFreshScreen(screen: BaseScreen<*, *, *>, extras: Bundle? = null) {
+        activity.replaceScreen(screen, false, extras)
     }
 
-    fun finishScreen() {
-        activity.finishScreen()
+    fun finishScreen(extras: Bundle? = null) {
+        activity.finishScreen(extras)
+    }
+
+    fun openActivity(from: Context, clazz: Class<*>){
+        startActivity(Intent(from, clazz))
     }
 }
 

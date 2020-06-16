@@ -4,6 +4,7 @@ import android.view.View
 import id.lesprivate.lib.mvvm.BaseScreen
 import id.lesprivate.lib.mvvm.Renderer
 import id.lesprivate.lib.ui.utils.EditTextHelper
+import id.radhika.feature.user.FeatureUserModule
 import id.radhika.feature.user.databinding.ScreenLoginBinding
 
 
@@ -25,8 +26,10 @@ class LoginScreen : BaseScreen<ScreenLoginBinding, LoginVM, LoginDao>(ScreenLogi
         renderButton(this)
         renderError(this)
 
-        if (isValid)
-            finishScreen()
+        if (isValid) {
+            activity.finish()
+            openActivity(activity, FeatureUserModule.get().screenAfterLogin.invoke())
+        }
     }
 
     private fun renderLoading(loginDao: LoginDao) {

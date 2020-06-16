@@ -11,4 +11,5 @@
     <color name="colorRed">#FF0101</color>
     <color name="colorBlueOcean">#00EAFF</color>
     <color name="colorIndigo">#0048FF</color>
+    <color name="colorRootBackground">#F8F8F8</color>
 </resources>

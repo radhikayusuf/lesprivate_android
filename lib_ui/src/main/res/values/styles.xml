@@ -17,7 +17,7 @@
     <style name="ButtonPrimary" parent="TextAppearance.AppCompat.Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/background_primary_button</item>
+        <item name="android:background">@drawable/background_primary_button_layer</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:padding">@dimen/dimens_16dp</item>
         <item name="android:textAllCaps">true</item>

@@ -1,8 +1,12 @@
 package id.radhika.feature.user.data.impl
 
+import android.content.SharedPreferences
+import com.google.gson.Gson
 import id.lesprivate.lib.data.api.ApiService
 import id.lesprivate.lib.data.model.SimpleResult
 import id.lesprivate.lib.data.model.getExceptionResponse
+import id.lesprivate.lib.data.pref.string
+import id.radhika.feature.user.FeatureUserModule
 import id.radhika.feature.user.data.UserRepository
 import id.radhika.feature.user.data.api.UserService
 import id.radhika.feature.user.data.model.LoginBodyModel
@@ -15,11 +19,12 @@ import kotlinx.coroutines.delay
  * on 08/Jun/2020
  **/
 class UserRepositoryImpl(
-    private val apiService: UserService = ApiService.createService(
-        UserService::class.java,
-        "http://167.172.95.177:8080/"
-    )
+    private val apiService: UserService = ApiService.createService(UserService::class.java, "http://bimbel.zaelani.me//"),
+    private val gson: Gson = Gson(),
+    pref: SharedPreferences = FeatureUserModule.get().createPref()
 ) : UserRepository {
+
+    var userStringData: String by pref.string(USER_DATA_KEY, "")
 
     override suspend fun registerUser(
         fullname: String,
@@ -46,6 +51,7 @@ class UserRepositoryImpl(
         return try {
             val result = apiService.loginUser(LoginBodyModel(email, password))
             return if (result.code in 200..205) {
+                userStringData = gson.toJson(result.data)
                 SimpleResult(true, result.data, result.message)
             } else {
                 SimpleResult(false, result.data, result.message)
@@ -53,5 +59,15 @@ class UserRepositoryImpl(
         } catch (e: Exception) {
             getExceptionResponse<LoginResponseModel>(e).let { SimpleResult(it.isSuccess, it.data, it.message) }
         }
+    }
+
+    override suspend fun isLogin() = userStringData.isNotEmpty()
+
+    override suspend fun logout() {
+        userStringData = ""
+    }
+
+    companion object {
+        const val USER_DATA_KEY = "USER_DATA_KEY_PREF"
     }
 }

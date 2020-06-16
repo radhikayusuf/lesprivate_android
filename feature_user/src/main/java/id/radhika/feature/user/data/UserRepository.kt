@@ -12,4 +12,8 @@ interface UserRepository {
     suspend fun registerUser(fullname: String, username: String, email: String, password: String, level: String): SimpleResult<String>
 
     suspend fun login(email: String, password: String): SimpleResult<LoginResponseModel>
+
+    suspend fun isLogin(): Boolean
+
+    suspend fun logout()
 }

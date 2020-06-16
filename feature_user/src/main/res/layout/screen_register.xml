@@ -9,8 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dimens_24dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/dimens_24dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,8 +36,9 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="textPersonName"
+                android:maxLength="50"
                 android:paddingTop="@dimen/dimens_16dp"
-                android:paddingBottom="@dimen/dimens_16dp"/>
+                android:paddingBottom="@dimen/dimens_16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,8 +56,9 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:maxLength="50"
                 android:paddingTop="@dimen/dimens_16dp"
-                android:paddingBottom="@dimen/dimens_16dp"/>
+                android:paddingBottom="@dimen/dimens_16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,8 +76,9 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
+                android:maxLength="50"
                 android:paddingTop="@dimen/dimens_16dp"
-                android:paddingBottom="@dimen/dimens_16dp"/>
+                android:paddingBottom="@dimen/dimens_16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,8 +96,9 @@
                 android:hint="@string/text_kata_sandi"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
+                android:maxLength="16"
                 android:paddingTop="@dimen/dimens_16dp"
-                android:paddingBottom="@dimen/dimens_16dp"/>
+                android:paddingBottom="@dimen/dimens_16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,27 +117,28 @@
                 android:hint="@string/text_tulis_ulang_kata_sandi"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
+                android:maxLength="16"
                 android:paddingTop="@dimen/dimens_16dp"
-                android:paddingBottom="@dimen/dimens_16dp"/>
+                android:paddingBottom="@dimen/dimens_16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/size_10sp"
             android:layout_marginBottom="@dimen/dimens_8dp"
-            android:text="@string/text_jenjang_pendidikan"/>
+            android:text="@string/text_jenjang_pendidikan"
+            android:textSize="@dimen/size_10sp" />
 
         <Spinner
             android:id="@+id/spinnerLevel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimens_32dp"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:layout_marginBottom="@dimen/dimens_32dp"
             android:paddingTop="@dimen/dimens_16dp"
-            android:paddingBottom="@dimen/dimens_16dp"/>
+            android:paddingBottom="@dimen/dimens_16dp" />
 
         <FrameLayout
             android:id="@+id/buttonRegister"
@@ -143,20 +148,20 @@
 
             <TextView
                 android:id="@+id/buttonText"
+                style="@style/ButtonPrimaryContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_daftar"
-                android:visibility="visible"
-                style="@style/ButtonPrimaryContent" />
+                android:visibility="visible" />
 
             <ProgressBar
                 android:id="@+id/buttonProgress"
+                style="?android:attr/progressBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="gone"
-                style="?android:attr/progressBarStyleSmall"
-                android:indeterminateTint="@color/colorAccent"/>
+                android:indeterminateTint="@color/colorAccent"
+                android:visibility="gone" />
 
         </FrameLayout>
 

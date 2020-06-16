@@ -1,15 +1,14 @@
 package id.lesprivate.lib.mvvm
 
 import androidx.annotation.StringRes
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import id.lesprivate.lib.ui.utils.ComponentLiveDao
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import id.lesprivate.lib.ui.utils.LiveListDao
+import id.lesprivate.lib.ui.utils.NullableLiveDao
+import kotlinx.coroutines.*
+import kotlinx.coroutines.launch as fire
+import kotlinx.coroutines.async as await
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by Radhika Yusuf Alifiansyah
@@ -17,7 +16,11 @@ import kotlinx.coroutines.launch
  **/
 abstract class BaseVM<D : BaseDao>(
     private val contentData: D
-) : ViewModel() {
+) : ViewModel(), CoroutineScope {
+
+    private val job: Job = SupervisorJob()
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.IO
 
     private val toastLiveData by lazy { ComponentLiveDao("") }
     private val toastResLiveData by lazy { ComponentLiveDao(-1) }
@@ -40,11 +43,15 @@ abstract class BaseVM<D : BaseDao>(
         }
     }
 
-    private fun getLiveDatas(): List<ComponentLiveDao<*>> {
+    private fun getLiveDatas(): List<LiveData<*>> {
         return try {
             contentData.javaClass.declaredFields
-                .filter { ComponentLiveDao::class.java.isAssignableFrom(it.type) }
-                .map { it.isAccessible = true; it.get(contentData) as ComponentLiveDao<*> }
+                .filter {
+                    ComponentLiveDao::class.java.isAssignableFrom(it.type) ||
+                            NullableLiveDao::class.java.isAssignableFrom(it.type) ||
+                            LiveListDao::class.java.isAssignableFrom(it.type)
+                }
+                .map { it.isAccessible = true; it.get(contentData) as LiveData<*> }
         } catch (e: Exception) {
             emptyList()
         }
@@ -74,7 +81,7 @@ abstract class BaseVM<D : BaseDao>(
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
         command: suspend () -> Unit
     ) =
-        viewModelScope.launch(dispatcher) {
+        fire(dispatcher) {
             command.invoke()
         }
 
@@ -82,7 +89,7 @@ abstract class BaseVM<D : BaseDao>(
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
         command: suspend () -> T
     ) =
-        viewModelScope.async(dispatcher) {
+        await(dispatcher) {
             command.invoke()
         }
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
  * Created by Radhika Yusuf Alifiansyah
  * on 02/Apr/2020
  **/
-class ComponentLiveDao<T>(private val defValue: T) : LiveData<T>() {
+open class ComponentLiveDao<T>(private val defValue: T) : LiveData<T>() {
 
     var content: T = defValue
         get() = value ?: defValue

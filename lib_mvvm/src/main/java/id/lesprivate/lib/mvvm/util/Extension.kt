@@ -26,11 +26,11 @@ fun String.isPassword(): Boolean =
     this.matches(Regex(StringConst.VALID_PASSWORD_REGEX))
 
 fun BaseScreen<*, *, *>.showToast(value: String, length: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(requireContext(), value, length).show()
+    getContext()?.let { Toast.makeText(it, value, length).show() }
 }
 
 fun BaseScreen<*, *, *>.showToast(@StringRes value: Int, length: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(requireContext(), value, length).show()
+    getContext()?.let { Toast.makeText(it, value, length).show() }
 }
 
 fun FragmentManager.replaceScreen(
